@@ -1,0 +1,20 @@
+{
+    "version":"0.0.1",
+    "mode":"test",
+    "db":{
+        "dev":{
+            "Address":   "ws://localhost:8000/rpc",
+            "User":      "root",
+            "Pass":      "root",
+            "Namespace": "test",
+            "Database":  "test"
+        },
+        "test":{
+            "Address":   "ws://localhost:8000/rpc",
+            "User":      "root",
+            "Pass":      "root",
+            "Namespace": "test",
+            "Database":  "test"
+        }
+    } 
+}
