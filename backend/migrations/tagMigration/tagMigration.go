@@ -4,11 +4,16 @@ import (
 	"math/rand"
 
 	"github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
+	tagevents "github.com/AbdulfatahMohammedSheikh/backend/events/tagEvents"
 	tagmodal "github.com/AbdulfatahMohammedSheikh/backend/modals/tagModal"
 	usermodal "github.com/AbdulfatahMohammedSheikh/backend/modals/userModal"
 )
 
 func SetUp(a *surreal.AppRepository) {
+
+	tagevents.OnTagCreated(a)
+	tagevents.OnTagDeleted(a)
+
 	tags := []string{"tech", "spart", "health", "education", "nature", "hr", "enginering", "oil"}
 
 	for i := range tags {

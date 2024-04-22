@@ -5,13 +5,15 @@ import (
 	"net/url"
 
 	"github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
+	"time"
 )
 
 type Tag struct {
 	// TODO: add more fields to store the count of times that a tag was mentions by ngo
 	// TODO: add more feilds to store the count of times that a tag was mentions by users
-	Id   string `json:"id,omitempty"`
-	Name string `json:"name"`
+	Id       string     `json:"id,omitempty"`
+	Name     string     `json:"name"`
+	CreateAt *time.Time `json:"created_at"`
 }
 
 func MapIt(id, name string) string {

@@ -188,3 +188,16 @@ func Update(a *AppRepository, id string, recored interface{}) error {
 	_, err := a.Db.Update(id, recored)
 	return err
 }
+
+func CreateEvent(a *AppRepository, name, table, event, action string) error {
+
+	q := fmt.Sprintf(`define event %s on table %s when $event = %s  then ( %s );`, name, table, event, action)
+
+	_, err := a.Db.Query(q, nil)
+
+	if nil != err {
+		return err
+	}
+
+	return nil
+}
