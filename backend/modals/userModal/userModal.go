@@ -85,7 +85,7 @@ func All(a *surreal.AppRepository) ([]User, error) {
 		return []User{}, err
 	}
 	if 0 == len(users) {
-		return []User{}, errors.New("no tags has been created yet")
+		return []User{}, errors.New("no user has been created yet")
 	}
 
 	return users, nil
@@ -214,6 +214,7 @@ func AddTag(a *surreal.AppRepository, id, tag string) error {
 		}
 	}
 
+	// TODO: user tag += tagid instead of this
 	u.Tags = append(u.Tags, tag)
 
 	err = Update(a, u)
@@ -248,6 +249,7 @@ func RemoveTag(a *surreal.AppRepository, id, tag string) error {
 		return errors.New("user has not tag with given id: " + tag)
 
 	}
+	// TODO: user tag  -= tagid
 	deletetdTagIndex := slices.Index(user.Tags, tag)
 	slices.Replace(user.Tags, deletetdTagIndex, deletetdTagIndex+1, "")
 
