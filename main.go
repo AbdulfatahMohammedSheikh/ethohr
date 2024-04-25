@@ -15,9 +15,8 @@ func main() {
 
 	config := surreal.NewApp()
 
-    // TODO: rewrite test
+	// TODO: rewrite test
 	// TODO: add auth using jwt
-
 
 	var log = NewLogger()
 	log.Trace(logger.TraceLevel)

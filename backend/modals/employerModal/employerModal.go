@@ -2,6 +2,7 @@ package employermodal
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 	"slices"
 
@@ -136,13 +137,17 @@ func AddTag(a *surreal.AppRepository, id, tag string) error {
 	if nil != err {
 		return err
 	}
-
+	// employers
 	if slices.Contains(employer.Tags, tag) {
 		return errors.New("employer already has given tag")
 	}
 
-	employer.Tags = append(employer.Tags, tag)
-	err = Update(a, employer)
+	q := fmt.Sprintf("update employers set tags += %s where id = %s", tag, employer.Id)
+	_, err = a.Db.Query(q, nil)
+
+	if nil != err {
+		return err
+	}
 	return nil
 
 }
@@ -160,10 +165,11 @@ func RemoveTag(a *surreal.AppRepository, id, tag string) error {
 		return errors.New("employer has not tag with given id: " + tag)
 
 	}
-	deletetdTagIndex := slices.Index(e.Tags, tag)
-	slices.Replace(e.Tags, deletetdTagIndex, deletetdTagIndex+1, "")
+	q := fmt.Sprintf("update employers set tags -= %s where id = %s", tag, e.Id)
+	_, err = a.Db.Query(q, nil)
 
-	Update(a, e)
-
+	if nil != err {
+		return err
+	}
 	return nil
 }

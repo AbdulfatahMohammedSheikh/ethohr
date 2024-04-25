@@ -214,10 +214,8 @@ func AddTag(a *surreal.AppRepository, id, tag string) error {
 		}
 	}
 
-	// TODO: user tag += tagid instead of this
-	u.Tags = append(u.Tags, tag)
-
-	err = Update(a, u)
+	q := fmt.Sprintf("update users set tags += %s where id = %s", tag, u.Id)
+	_, err = a.Db.Query(q, nil)
 
 	if nil != err {
 		return err
@@ -249,11 +247,13 @@ func RemoveTag(a *surreal.AppRepository, id, tag string) error {
 		return errors.New("user has not tag with given id: " + tag)
 
 	}
-	// TODO: user tag  -= tagid
-	deletetdTagIndex := slices.Index(user.Tags, tag)
-	slices.Replace(user.Tags, deletetdTagIndex, deletetdTagIndex+1, "")
 
-	Update(a, user)
+	q := fmt.Sprintf("update users set tags -= %s where id = %s", tag, user.Id)
+	_, err = a.Db.Query(q, nil)
+
+	if nil != err {
+		return err
+	}
 
 	return nil
 }
