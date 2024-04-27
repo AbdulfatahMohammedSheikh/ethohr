@@ -8,6 +8,10 @@ import (
 	rolemigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/roleMigration"
 	tagmigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/tagMigration"
 	usermigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/userMigration"
+	// emplpyermigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/emplpyerMigration"
+	// rolemigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/roleMigration"
+	// tagmigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/tagMigration"
+	// usermigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/userMigration"
 )
 
 func TestCheckHealth(t *testing.T) {
@@ -23,22 +27,39 @@ func TestSetup(t *testing.T) {
 	if nil != err {
 		t.Fatal(err.Error())
 	}
+
 	rolemigration.SetUp(repo)
-	tagmigration.SetUp(repo)
 	usermigration.SetUp(repo)
+	tagmigration.SetUp(repo)
 	emplpyermigration.SetUp(repo)
 }
 
-func init() {
+func TestInit(t *testing.T) {
 
 	repo, err := testrunner.GetConfig()
 	defer repo.Close()
 
 	if nil != err {
-		panic(err.Error())
+		t.Fatal(err.Error())
 	}
+
 	rolemigration.Down(repo)
 	tagmigration.Down(repo)
 	usermigration.Down(repo)
 	emplpyermigration.Down(repo)
 }
+
+// func TestSetup(t *testing.T) {
+//
+// 	repo, err := testrunner.GetConfig()
+// 	defer repo.Close()
+//
+// 	if nil != err {
+// 		t.Fatal(err.Error())
+// 	}
+// 	rolemigration.SetUp(repo)
+// 	tagmigration.SetUp(repo)
+// 	usermigration.SetUp(repo)
+// 	emplpyermigration.SetUp(repo)
+// }
+//
