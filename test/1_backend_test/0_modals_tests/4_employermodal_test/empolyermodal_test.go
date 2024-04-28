@@ -8,7 +8,6 @@ import (
 	testrunner "github.com/AbdulfatahMohammedSheikh/backend/core/testRunner"
 	employermodal "github.com/AbdulfatahMohammedSheikh/backend/modals/employerModal"
 	rolemodal "github.com/AbdulfatahMohammedSheikh/backend/modals/roleModal"
-	tagmodal "github.com/AbdulfatahMohammedSheikh/backend/modals/tagModal"
 	usermodal "github.com/AbdulfatahMohammedSheikh/backend/modals/userModal"
 	"github.com/bxcodec/faker/v3"
 )

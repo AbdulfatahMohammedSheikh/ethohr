@@ -29,19 +29,3 @@ func TestSetup(t *testing.T) {
 	tagmigration.SetUp(repo)
 	emplpyermigration.SetUp(repo)
 }
-
-func TestInit(t *testing.T) {
-
-	repo, err := testrunner.GetConfig()
-	defer repo.Close()
-
-	if nil != err {
-		t.Fatal(err.Error())
-	}
-
-	rolemigration.Down(repo)
-	tagmigration.Down(repo)
-	usermigration.Down(repo)
-	emplpyermigration.Down(repo)
-}
-
