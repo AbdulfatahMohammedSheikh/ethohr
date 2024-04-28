@@ -80,4 +80,5 @@ func SignUp(a *surreal.AppRepository, name, email, password, phone, role string)
 	return nil
 }
 
+// TODO: implement signout method
 // signout
