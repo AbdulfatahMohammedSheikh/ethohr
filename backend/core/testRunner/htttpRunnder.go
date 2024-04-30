@@ -50,6 +50,10 @@ func GetConfig() (*surreal.AppRepository, error) {
 	return surreal.NewAppRepository(config.DB)
 }
 
+func NewLogger() *logger.Logger {
+	return logger.New()
+}
+
 // TODO: refactor this so it takes an [TestCase}
 func HttpRunner(t *testing.T, testCase TestCase) {
 
