@@ -41,12 +41,32 @@ func HasRoleWithId(a *surreal.AppRepository, id string) (Role, error) {
 		return Role{}, err
 	}
 
-	if 0 == len(role) {
-		return Role{}, errors.New("there is no role with given id")
-	}
 
 	if "" == role[0].Id {
 		return Role{}, errors.New("there is no role with given id")
+	}
+
+	return role[0], nil
+}
+
+
+func HasRoleWithName(a *surreal.AppRepository, name string) (Role, error) {
+	q := "select * from roles where name = $name limit 1;"
+	m := map[string]interface{}{
+		"name": name,
+	}
+
+	role, err := surreal.Find[Role](a, q, m, []Role{})
+	if nil != err {
+		return Role{}, err
+	}
+
+	if 0 == len(role) {
+		return Role{}, errors.New("there is no role with given name")
+	}
+
+	if "" == role[0].Id {
+		return Role{}, errors.New("there is no role with given name")
 	}
 
 	return role[0], nil
