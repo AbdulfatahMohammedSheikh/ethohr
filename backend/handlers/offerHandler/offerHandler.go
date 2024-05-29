@@ -1,7 +1,6 @@
 package offerhandler
 
 import (
-	"net/http"
 
 	"github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
 	offermodal "github.com/AbdulfatahMohammedSheikh/backend/modals/offerModal"
