@@ -1,10 +1,12 @@
 package authhandler
 
 import (
-	"net/http"
+	"fmt"
 
 	"github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
+	roleroutermiddleware "github.com/AbdulfatahMohammedSheikh/backend/middlewares/role_router_middleware"
 	authmodal "github.com/AbdulfatahMohammedSheikh/backend/modals/authModal"
+	rolemodal "github.com/AbdulfatahMohammedSheikh/backend/modals/roleModal"
 	"github.com/gin-gonic/gin"
 	logger "github.com/sirupsen/logrus"
 )
@@ -23,41 +25,39 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 		err := c.ShouldBind(&req)
 
 		if nil != err {
-			c.String(401, "check the information you entered")
+			c.String(401, "check the information you entered -----")
 			return
 		}
 
-		token, err := authmodal.Login(a, req.Email, req.Password)
-
-		if nil != err {
-			c.String(401, err.Error())
-			return
-		}
-
-		// Sign and get the complete encoded token as a string using the secret
-		m := make(map[string]string)
-		m["k"] = "k"
-
-		//TODO: the SignedString method cannot take string directly
-		tokenString, err := token.SignedString([]byte("sfsd"))
+		tokenString, role, id, err := authmodal.Login(a, req.Email, req.Password)
 
 		if err != nil {
-
-			c.JSON(404, gin.H{
+			c.JSON(401, gin.H{
 				"error": "cannot create token",
 			})
 			return
 		}
+		c.Set("token", *tokenString)
+		c.Set("role", *role)
+		c.Set("id", *id)
+		c.Next()
 
-		//creating cookes
-		c.SetSameSite(http.SameSiteLaxMode)
-		// TODO: store the token in server and compare it later
-		c.SetCookie("authtoken", tokenString, 3600*20*30, "", "", true, true)
-		c.JSON(200, gin.H{})
-	})
+		// //creating cookes
+		// c.SetSameSite(http.SameSiteLaxMode)
+
+		// // TODO: store the token in server and compare it later
+
+		// c.SetCookie("authtoken", *tokenString, 3600*20*30, "/", "http://127.0.0.1:8080", true, true)
+		// c.SetCookie("token", "dd", 606024, "/", "http://localhost", true, true)
+
+		// c.JSON(200, gin.H{
+		// 	"key": tokenString,
+		// })
+	}, roleroutermiddleware.RoleRouter)
 
 	// signup
 	r.POST("/auth/signup", func(c *gin.Context) {
+
 		var req struct {
 			Name     string `form:"name" binding:"required"`
 			Email    string `form:"email" binding:"required"`
@@ -75,7 +75,20 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 			})
 			return
 		}
-		err = authmodal.SignUp(a, req.Name, req.Email, req.Password, req.Phone, req.Role)
+
+		role, err := rolemodal.HasRoleWithName(a, req.Role)
+
+		fmt.Println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+
+		if nil != err {
+
+			c.JSON(401, gin.H{
+				"error": "You are trying to create accound for nonexiting role",
+			})
+			return
+		}
+
+		err = authmodal.SignUp(a, req.Name, req.Email, req.Password, req.Phone, role.Id)
 
 		if nil != err {
 

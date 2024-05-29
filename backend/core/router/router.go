@@ -4,6 +4,7 @@ import (
 	"github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
 	authhandler "github.com/AbdulfatahMohammedSheikh/backend/handlers/authHandler"
 	employerhandler "github.com/AbdulfatahMohammedSheikh/backend/handlers/employerHandler"
+	offerhandler "github.com/AbdulfatahMohammedSheikh/backend/handlers/offerHandler"
 	rolehandler "github.com/AbdulfatahMohammedSheikh/backend/handlers/roleHandler"
 	taghandler "github.com/AbdulfatahMohammedSheikh/backend/handlers/tagHandler"
 
@@ -13,6 +14,18 @@ import (
 )
 
 func SetRouter(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(400,
+			gin.H{
+				"error": "no such route",
+			})
+
+	})
+
+	r.GET("/", func(c *gin.Context) {
+		// TODO: create show message to use
+		println("-000000000000000000000000000-")
+	})
 
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(
@@ -24,9 +37,27 @@ func SetRouter(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 	taghandler.Regiester(r, a, log)
 	rolehandler.Regiester(r, a, log)
 	employerhandler.Regiester(r, a, log)
+    offerhandler.Regiester(r , a , log)
+
 	// TODO: add the fallowing handlers
 	// homehandler -> for browsing the site
 	// user hanlder
-	// employer handler
 
+
+    // TODO: use this to create cookies
+	// r.GET("/setcookie", func(c *gin.Context) {
+	// 	cookie := http.Cookie{
+	// 		Name:  "myCookie",
+	// 		Value: "someValue",
+	// 		Path:  "/",
+	// 		// Set Secure to false for local testing
+	// 		Secure: false,
+	// 		// Set Domain to localhost for local testing
+	// 		Domain:   "127.0.0.1",
+	// 		HttpOnly: false,
+	// 		MaxAge:   3600, // Expires in 1 hour
+	// 	}
+	// 	http.SetCookie(c.Writer, &cookie)
+	// 	c.JSON(http.StatusOK, gin.H{"message": "Cookie set successfully!"})
+	// })
 }
