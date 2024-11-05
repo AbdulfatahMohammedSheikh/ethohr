@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/AbdulfatahMohammedSheikh/backend/core/router"
 	surreal "github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
-	"github.com/gin-contrib/cors"
+	// "github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	logger "github.com/sirupsen/logrus"
 )
@@ -15,9 +15,11 @@ func NewLogger() *logger.Logger {
 func main() {
 
 	config := surreal.NewApp()
+	// TODO: create offermoadal migation file
+	// TODO: create data type
 
-    // TODO: use the auth middle ware for setting up cockeis  
-    // TODO: create auth table that contains user_id and cockie
+	// TODO: use the auth middle ware for setting up cockeis
+	// TODO: create auth table that contains user_id and cockie
 	// TODO: rewrite test
 	// TODO: add auth using jwt
 
@@ -35,15 +37,18 @@ func main() {
 	}()
 
 	r := gin.Default()
-	corsConfig := cors.DefaultConfig()
 
-	corsConfig.AllowOrigins = []string{"http://127.0.0.1:8080"}
-	corsConfig.AllowMethods = []string{"PUT", "PATCH", "POST", "GET"}
-    corsConfig.AllowHeaders = []string{"Origin"}
-    corsConfig.AllowCredentials = true
+	// corsConfig := cors.DefaultConfig()
+	//
+	// corsConfig.AllowOrigins = []string{"http://127.0.0.1:8080"}
+	// corsConfig.AllowMethods = []string{"PUT", "PATCH", "POST", "GET"}
+	//    corsConfig.AllowHeaders = []string{"Origin"}
+	//    corsConfig.AllowCredentials = true
 
 	// Configure CORS using default settings (modify as needed)
-	r.Use(cors.New(corsConfig))
+	// r.Use(cors.New(corsConfig))
+
+
 	router.SetRouter(r, repo, log)
-    r.Run(":8090")
+	r.Run(":8090")
 }

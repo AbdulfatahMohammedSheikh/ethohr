@@ -9,6 +9,20 @@ import (
 
 func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 
+	r.GET("/ngo/add-offer", func(c *gin.Context) {
+		// TODO: implement this
+
+		c.JSON(200, gin.H{})
+	})
+
+	r.GET("/ngo/update-offer/:id", func(c *gin.Context) {
+
+		// TODO: implement this
+
+		c.JSON(200, gin.H{})
+
+	})
+
 	// create
 	r.POST("/employer", func(c *gin.Context) {
 		var req struct {

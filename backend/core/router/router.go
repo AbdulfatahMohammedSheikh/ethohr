@@ -14,6 +14,7 @@ import (
 )
 
 func SetRouter(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
+
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(400,
 			gin.H{
@@ -22,29 +23,25 @@ func SetRouter(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 
 	})
 
-	r.GET("/", func(c *gin.Context) {
-		// TODO: create show message to use
-		println("-000000000000000000000000000-")
-	})
+
 
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(
 			200, gin.H{"message": "up and running"},
 		)
+
 	})
+
+
 
 	authhandler.Regiester(r, a, log)
 	taghandler.Regiester(r, a, log)
 	rolehandler.Regiester(r, a, log)
 	employerhandler.Regiester(r, a, log)
-    offerhandler.Regiester(r , a , log)
-
-	// TODO: add the fallowing handlers
-	// homehandler -> for browsing the site
-	// user hanlder
+	offerhandler.Regiester(r, a, log)
 
 
-    // TODO: use this to create cookies
+	// TODO: use this to create cookies
 	// r.GET("/setcookie", func(c *gin.Context) {
 	// 	cookie := http.Cookie{
 	// 		Name:  "myCookie",
@@ -60,4 +57,5 @@ func SetRouter(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 	// 	http.SetCookie(c.Writer, &cookie)
 	// 	c.JSON(http.StatusOK, gin.H{"message": "Cookie set successfully!"})
 	// })
+
 }
