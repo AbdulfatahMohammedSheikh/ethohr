@@ -1,7 +1,6 @@
 package authhandler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
@@ -51,7 +50,7 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 		c.SetCookie("authtoken", *tokenString, 3600*20*30, "/", "http://127.0.0.1:8080", true, true)
 		c.SetCookie("id", *id, 3600*20*30, "/", "http://127.0.0.1:8080", true, true)
 
-        // TODO: remove this black
+		// TODO: remove this black
 		c.Set("token", *tokenString)
 		c.Set("role", *role)
 		c.Set("id", *id)
@@ -115,7 +114,7 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 
 	})
 
-    // TODO: implement this
+	// TODO: implement this
 	// signout
 	r.POST("/auth/signout", func(c *gin.Context) {
 		// remove the tokens from cookies

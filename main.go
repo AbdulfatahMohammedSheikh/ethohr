@@ -15,12 +15,9 @@ func NewLogger() *logger.Logger {
 func main() {
 
 	config := surreal.NewApp()
-	// TODO: create offermoadal migation file
-	// TODO: create data type
 
 	// TODO: use the auth middle ware for setting up cockeis
 	// TODO: create auth table that contains user_id and cockie
-	// TODO: rewrite test
 	// TODO: add auth using jwt
 
 	var log = NewLogger()

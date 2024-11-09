@@ -3,6 +3,7 @@ package main
 import (
 	surreal "github.com/AbdulfatahMohammedSheikh/backend/db/surreal"
 	emplpyermigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/emplpyerMigration"
+	offermigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/offerMigration"
 	rolemigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/roleMigration"
 	tagmigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/tagMigration"
 	usermigration "github.com/AbdulfatahMohammedSheikh/backend/migrations/userMigration"
@@ -13,6 +14,7 @@ var log = logger.New()
 
 func main() {
 
+	// TODO: create a log stating the tables in the db. that was created
 
 	config := surreal.NewApp()
 	log.Trace(logger.TraceLevel)
@@ -33,5 +35,6 @@ func main() {
 	usermigration.SetUp(repo)
 	tagmigration.SetUp(repo)
 	emplpyermigration.SetUp(repo)
+	offermigration.SetUp(repo)
 
 }

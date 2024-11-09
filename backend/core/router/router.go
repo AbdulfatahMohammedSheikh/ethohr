@@ -29,10 +29,7 @@ func SetRouter(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 		c.JSON(
 			200, gin.H{"message": "up and running"},
 		)
-
 	})
-
-
 
 	authhandler.Regiester(r, a, log)
 	taghandler.Regiester(r, a, log)

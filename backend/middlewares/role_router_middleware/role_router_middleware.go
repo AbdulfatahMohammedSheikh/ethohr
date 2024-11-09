@@ -53,9 +53,9 @@ func RoleRouter(c *gin.Context) {
 		c.JSON(
 			201,
 			gin.H{
-				"routes": roleroutes.Routes,
+				"routes":        roleroutes.Routes,
 				"default_route": roleroutes.DefaultRoute,
-                "id":id,
+				"id":            id,
 			},
 		)
 

@@ -17,11 +17,11 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 		var req struct {
 			EmployerId string `form:"employer_id" binding:"required"`
 			// EmployerName string `form:"employer_name" binding:"required"`
-			Title        string `form:"title" binding:"required"`
-			Requirements string `form:"requirements" binding:"required"`
-			Duty         string `form:"duty" binding:"required"`
-			PostDate     string `form:"postDate" binding:"required"`
-			Deadline     string `form:"deadline" binding:"required"`
+			Title        string   `form:"title" binding:"required"`
+			Requirements []string `form:"requirements" binding:"required"`
+			Duty         []string `form:"duty" binding:"required"`
+			PostDate     string   `form:"postDate" binding:"required"`
+			Deadline     string   `form:"deadline" binding:"required"`
 		}
 		err := c.ShouldBind(&req)
 
@@ -43,10 +43,10 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 			// TODO: make the below line use the infratmion from where employer create his name
 			req.EmployerId,
 			req.Title,
-			req.Requirements,
-			req.Duty,
 			req.PostDate,
 			req.Deadline,
+			req.Requirements,
+			req.Duty,
 		)
 
 		err = offer.Create(a)
@@ -161,11 +161,11 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 		var req struct {
 			EmployerId string `form:"employer_id" binding:"required"`
 			// EmployerName string `form:"employer_name" binding:"required"`
-			Title        string `form:"title" binding:"required"`
-			Requirements string `form:"requirements" binding:"required"`
-			Duty         string `form:"duty" binding:"required"`
-			PostDate     string `form:"postDate" binding:"required"`
-			Deadline     string `form:"deadline" binding:"required"`
+			Title        string   `form:"title" binding:"required"`
+			Requirements []string `form:"requirements" binding:"required"`
+			Duty         []string `form:"duty" binding:"required"`
+			PostDate     string   `form:"postDate" binding:"required"`
+			Deadline     string   `form:"deadline" binding:"required"`
 		}
 		err := c.ShouldBind(&req)
 
@@ -193,14 +193,12 @@ func Regiester(r *gin.Engine, a *surreal.AppRepository, log *logger.Logger) {
 			// TODO: make the below line use the infratmion from where employer create his name
 			req.EmployerId,
 			req.Title,
-			req.Requirements,
-			req.Duty,
 			req.PostDate,
 			req.Deadline,
+			req.Requirements,
+			req.Duty,
 		)
 
-		// TODO: remove _ = offer
-		_ = offer
 
 		err = offermodal.Update(a, *offer)
 

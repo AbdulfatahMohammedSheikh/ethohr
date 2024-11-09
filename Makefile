@@ -1,7 +1,7 @@
 run: 
 	@air
 
-setup: 
+migrate: 
 	@go run ./cmd/setup/main.go
 
 tests : 
@@ -13,3 +13,5 @@ health:
 clear :
 	@ rm -rf ./tmp/
 
+surreal:
+	~/.surrealdb/surreal start memory -A --user root --pass root
